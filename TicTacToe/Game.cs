@@ -185,6 +185,11 @@ namespace TicTacToe
                 turn = Letter.O;
         }
 
+        /// <summary>
+        /// Check if a value is in a corner or not.
+        /// </summary>
+        /// <param name="space"></param>
+        /// <returns></returns>
         private bool isCorner(Tuple<int, int> space)
         {
             int row = space.Item1;
@@ -196,6 +201,11 @@ namespace TicTacToe
             else return false;
         }
 
+        /// <summary>
+        /// Check if a value is in the middle or not.
+        /// </summary>
+        /// <param name="space"></param>
+        /// <returns></returns>
         private bool isMiddle(Tuple<int, int> space)
         {
             int row = space.Item1;
@@ -206,6 +216,11 @@ namespace TicTacToe
             else return false;
         }
 
+        /// <summary>
+        /// Check for a potential win. Checks for rows, then columns, then diagonals.
+        /// </summary>
+        /// <param name="letter"></param>
+        /// <returns></returns>
         private int checkForPotentialWin(Letter letter)
         {
             // Check for win in a row.
@@ -249,6 +264,12 @@ namespace TicTacToe
             return -1;
         }
 
+        /// <summary>
+        /// Make a computer move in an IMPOSSIBLE move game. The computer will immediately try
+        /// to win, or else stop the player from winning. Otherwise, it follows a specific pattern
+        /// to try and force a winning condition.
+        /// </summary>
+        /// <returns></returns>
         public int impossibleComputerMove()
         {
             int pos = -1;
@@ -305,6 +326,12 @@ namespace TicTacToe
             return pos;
         }
 
+        /// <summary>
+        /// Take an integer value and populate the grid 2-dimensional array at the associated spot.
+        /// </summary>
+        /// <param name="loc"></param>
+        /// <param name="letter"></param>
+        /// <returns></returns>
         private int fillSpace(int loc, Letter letter)
         {
             switch (loc)
@@ -358,6 +385,14 @@ namespace TicTacToe
             return 0;
         }
 
+        /// <summary>
+        /// Make the computer move, in the normal one player mode.
+        /// Will check for a potential win, then a potential loss.
+        /// For both, there is a %30 chance of making a "mistake"; meaning, it will
+        /// skip the opportunity to win or stop the player from winning.
+        /// Afterwards, it picks a spot randomly.
+        /// </summary>
+        /// <returns></returns>
         public int computerMove()
         {
             Random rand = new Random();

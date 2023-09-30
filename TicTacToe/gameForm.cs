@@ -87,7 +87,15 @@ namespace TicTacToe
         }
 
         // Game mechancis
-        private void makeMove(Tuple<int, int> position, PictureBox space, bool computer = false)
+
+        /// <summary>
+        /// Make a move. FIll the space with the current turn, check for a game over, and do any
+        /// computer moves as needed.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="space"></param>
+        /// <param name="computer"></param>
+        private void makeMove(Tuple<int, int> position, PictureBox space)
         {
             fillSpace(space, game.turn);
             game.makeMove(position, game.turn);
@@ -95,21 +103,21 @@ namespace TicTacToe
                 return;
 
             // If it's a one player game, and the human just went, let the computer go...
-            if (gameType != GameType.TWO_PLAYER && computer == false)
+            if (gameType != GameType.TWO_PLAYER)
             {
                 // If IMPOSSIBLE, do the algorithm >:)
                 if (gameType == GameType.ONE_PLAYER_IMPOSSIBLE)
                 {
                     game.changeTurn();
                     int pos = game.impossibleComputerMove();
-                    computerMove(pos);
+                    computerMove(pos, game.turn);
                 }
                 // Else place randomly.
                 else
                 {
                     game.changeTurn();
                     int pos = game.computerMove();
-                    computerMove(pos);
+                    computerMove(pos, game.turn);
                 }
                 if (checkForGameOver())
                     return;
@@ -117,10 +125,13 @@ namespace TicTacToe
 
             game.changeTurn();
             turnLabelName.Text = game.turn.ToString();
-
-            Console.WriteLine(game.turn);
         }
 
+        /// <summary>
+        /// Fill the space with the correct image, and disable the ability to click it.
+        /// </summary>
+        /// <param name="space"></param>
+        /// <param name="letter"></param>
         private void fillSpace(PictureBox space, Letter letter)
         {
             // If the turn is O, set the letter to O
@@ -137,40 +148,49 @@ namespace TicTacToe
             }
         }
 
-        private void computerMove(int space)
+        /// <summary>
+        /// Pass in an int value, and fill in the space associated with the number.
+        /// Only used by the computer player.
+        /// </summary>
+        /// <param name="space"></param>
+        private void computerMove(int space, Letter letter)
         {
             switch (space)
             {
                 case 0:
-                    fillSpace(topLeft, Letter.X);
+                    fillSpace(topLeft, letter);
                     break;
                 case 1:
-                    fillSpace(topMiddle, Letter.X);
+                    fillSpace(topMiddle, letter);
                     break;
                 case 2:
-                    fillSpace(topRight, Letter.X);
+                    fillSpace(topRight, letter);
                     break;
                 case 3:
-                    fillSpace(middleLeft, Letter.X);
+                    fillSpace(middleLeft, letter);
                     break;
                 case 4:
-                    fillSpace(middleMiddle, Letter.X);
+                    fillSpace(middleMiddle, letter);
                     break;
                 case 5:
-                    fillSpace(middleRight, Letter.X);
+                    fillSpace(middleRight, letter);
                     break;
                 case 6:
-                    fillSpace(bottomLeft, Letter.X);
+                    fillSpace(bottomLeft, letter);
                     break;
                 case 7:
-                    fillSpace(bottomMiddle, Letter.X);
+                    fillSpace(bottomMiddle, letter);
                     break;
                 case 8:
-                    fillSpace(bottomRight, Letter.X);
+                    fillSpace(bottomRight, letter);
                     break;
             }
         }
 
+        /// <summary>
+        /// Check for a game over. If there was one, display the game over screen.
+        /// </summary>
+        /// <returns></returns>
         private bool checkForGameOver()
         {
             // Check if the move is a victory
@@ -235,6 +255,10 @@ namespace TicTacToe
             bottomRight.Image = null;
         }
 
+        /// <summary>
+        /// Start the game. Display all needed information, and hide what isn't needed depending
+        /// on the game mode.
+        /// </summary>
         private void startGame()
         {
             // Enable ability to select picture boxes
@@ -287,7 +311,7 @@ namespace TicTacToe
             else if (gameType == GameType.ONE_PLAYER)
             {
                 int pos = game.computerMove();
-                computerMove(pos);
+                computerMove(pos, Letter.X);
             }
             else
             {
@@ -310,6 +334,12 @@ namespace TicTacToe
             startGame();
         }
 
+        /// <summary>
+        /// Only allow the player to start the game if a radio button is selected.
+        /// Update the game mode with the currently selected radio button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void radioButton_CheckedChanged(object sender, EventArgs e)
         {
             if (onePlayerRadio.Checked)
