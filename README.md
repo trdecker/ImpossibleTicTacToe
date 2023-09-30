@@ -20,7 +20,7 @@ I used Visual Studio 2017 and C#.
 Most helpful in this project were a few youtube videos on the strategy to winning Tic Tac Toe and good old ChatGPT.
 
 - [ChatGPT](https://chat.openai.com/)
-- [Tic Tac Toe tutorial]((https://www.youtube.com/watch?time_continue=3&v=OmC07DvEayY&embeds_referring_euri=https%3A%2F%2Fduckduckgo.com%2F&feature=emb_title)https://www.youtube.com/watch?time_continue=3&v=OmC07DvEayY&embeds_referring_euri=https%3A%2F%2Fduckduckgo.com%2F&feature=emb_title)
+- [Tic Tac Toe tutorial](https://www.youtube.com/watch?time_continue=3&v=OmC07DvEayY&embeds_referring_euri=https%3A%2F%2Fduckduckgo.com%2F&feature=emb_title)
 
 # Future Work
 I like the idea of a modifiable Tic Tac Toe board. It'd be interesting to be able enter in the parameters "height", "width", and "number in a row to win", and see if it could
